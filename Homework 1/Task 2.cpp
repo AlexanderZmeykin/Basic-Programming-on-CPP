@@ -1,41 +1,46 @@
 #include <iostream>
-#include <Windows.h>
+#include <string>
+#include <io.h>
+#include <fcntl.h>
+#include <stdio.h>
+
 using namespace std;
 
 struct account
 {
 	int ID;
-	string Name;
+	wstring Name;
 	float Value;
 };
 
 void create_account(account* creating)
 {
-	cout << "Введите номер счёта: ";
-	cin >> creating->ID;
-	cout << "Введите имя владельца: ";
-	cin >> creating->Name;
-	cout << "Введите текущий баланс: ";
-	cin >> creating->Value;
+	wcout << L"Введите номер счёта: ";
+	wcin >> creating->ID;
+	wcout << L"Введите имя владельца: ";
+	wcin >> creating->Name;
+	wcout << L"Введите текущий баланс: ";
+	wcin >> creating->Value;
 }
 
 void change_value(account* Change)
 {
 	float User_Input;
-	cout << "введите новый баланс:";
-	cin >> User_Input;
+	wcout << L"введите новый баланс:";
+	wcin >> User_Input;
 	Change->Value = User_Input;
 }
 
 void show_account(account* result)
 {
-	cout << "Ваш счёт: \n" << "Владелец: " << result->Name << " Номер счёта: " << result->ID << " Текущий баланс: " << result->Value << endl;
+	wcout << L"Ваш счёт: \n" << L"Владелец: " << result->Name << L" Номер счёта: " << result->ID << L" Текущий баланс: " << result->Value << endl;
 }
 
-int main(int argc, char** argv)
+int main(int argc, wchar_t* argv[])
 {
-	SetConsoleCP(65001);
-	SetConsoleOutputCP(65001);
+	_setmode(_fileno(stdout), _O_U16TEXT);
+	_setmode(_fileno(stdin), _O_U16TEXT);
+	_setmode(_fileno(stderr), _O_U16TEXT);
 
 	account User;
 
